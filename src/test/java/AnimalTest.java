@@ -1,25 +1,20 @@
-import net.doughughes.testifier.annotation.Testifier;
-import net.doughughes.testifier.watcher.NotifyingWatcher;
-import net.doughughes.testifier.watcher.OutputWatcher;
-import org.junit.Rule;
+import net.doughughes.testifier.test.TestifierTest;
 import org.junit.Test;
 
-@Testifier(sourcePath = "./src/main/java/Animal.java", clazz = Animal.class)
-public class AnimalTest {
+import static org.junit.Assert.fail;
 
-    @Rule
-    public NotifyingWatcher notifyingWatcher = new NotifyingWatcher("https://tiy-testifier-webapp.herokuapp.com/notify");
-
-    @Rule
-    public OutputWatcher outputWatcher = new OutputWatcher();
+public class AnimalTest extends TestifierTest {
 
     @Test
-    @Testifier(constructor = true)
-    public void canInstantiateAnimalTest() {
+    public void canInstantiateAnimalTest() throws ClassNotFoundException {
         /* arrange */
 
         /* act */
-        Animal animal = new Animal();
+        try {
+            Class aClass = Class.forName("Animal");
+        } catch (ClassNotFoundException e) {
+            fail("Unable to find a class named Animal");
+        }
 
         /* assert */
         /*
