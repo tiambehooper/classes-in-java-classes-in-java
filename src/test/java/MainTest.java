@@ -1,4 +1,5 @@
 import com.github.javaparser.ParseException;
+import net.doughughes.testifier.exception.CannotFindMethodException;
 import net.doughughes.testifier.matcher.RegexMatcher;
 import net.doughughes.testifier.output.OutputStreamInterceptor;
 import net.doughughes.testifier.test.TestifierTest;
@@ -40,13 +41,18 @@ public class MainTest extends TestifierTest {
     }
 
     @Test
-    public void mainMethodCreatesNewAnimalTest() throws NoSuchMethodException, IOException, ParseException {
+    public void mainMethodCreatesNewAnimalTest(){
         /* arrange */
 
         /* act */
 
         /* assert */
-        String source = codeWatcher.getMainSourceCodeService().getDescriptionOfMethod("main", String[].class);
+        String source = null;
+        try {
+            source = codeWatcher.getMainSourceCodeService().getDescriptionOfMethod("main", String[].class);
+        } catch (CannotFindMethodException e) {
+            fail(e.getMessage());
+        }
 
         Assert.assertThat("The main method should be declare an Animal variable and set it to a new instance of the Animal class.",
                 source, RegexMatcher.matches("^.*?VariableDeclarator VariableDeclaratorId\\[\\S*?\\] ObjectCreationExpr ClassOrInterfaceType\\[Animal\\].*?$"));
