@@ -16,6 +16,8 @@
  * Follow the instructions in javadoc comments below.
  *
  */
+
+//class name main
 public class Main {
 
     /**
@@ -23,11 +25,16 @@ public class Main {
      * application. This method must be updated to create a new instance of the
      * Animal class, store it in a variable, and then print it to the console.
      */
+
+    //main is the entry point
     public static void main(String[] args) {
 
         // todo: create a variable that can hold an Animal and assign it to a new instance of an animal
+        Animal animal = new Animal();
 
         // todo: print the animal to the console
+
+        System.out.println( animal );
 
     }
 
